@@ -7,8 +7,8 @@ here, it didn't happen.
 
 - **Stage:** 1 — One function, no I/O
 - **Exit criteria:** predict exact output on 4 of 5 unseen functions, first try; explain each line in plain English; identify inputs, outputs, and state changes without prompting.
-- **Current focus:** Trace assignments in order. Treat `=` as replacement; preserve a value copied into another variable. Distinguish `%` (remainder) from `//` (floor-division quotient).
-- **Next session:** Re-drill copied values after reassignment, then quotient/remainder tracing.
+- **Current focus:** Trace assignments in order. Treat `=` as replacement; preserve a value copied into another variable. Distinguish `%` (remainder) from `//` (floor-division quotient). Recognize that a `def` only defines until called.
+- **Next session:** Re-drill the saved-variable-after-reassignment drill (ended before it), then quotient/remainder tracing (`%` vs `//`), then state-change tracing. Mix in the Python-feature overlay deck (name binding, truthiness, loops) as fresh material. Reviews now scheduled via the local FSRS deck.
 
 ---
 
@@ -23,6 +23,21 @@ list after three clean sessions.
 ---
 
 ## Session log
+
+### 2026-09-07 (Hermes session)
+
+- Switched the code-reading runtime to Hermes and wired in a local FSRS spaced-repetition
+  scheduler (two decks: `code-reading` for reading-skill concepts, `python-reading-overlay`
+  for Python language features activated in step with the current stage). Both decks seeded
+  with Stage 1 concepts.
+- Drilled "module top-level execution order": learner correctly identified that `def run():`
+  only defines the function and, with no call, nothing executes — output is nothing.
+- Drilled "copied value survives later reassignment of the source" (a prior miss): learner
+  got `b = a; a = 7; return b` → `3` correct on first try.
+- Both answered concepts logged Good in the FSRS deck.
+- Tutor framing error: the first copied-value drill wrapped the code in an uncalled `def`,
+  so it tested nothing; corrected and re-asked.
+- Ended before the saved-variable and quotient/remainder drills.
 
 ### 2026-09-07
 
