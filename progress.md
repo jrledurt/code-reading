@@ -7,8 +7,8 @@ here, it didn't happen.
 
 - **Stage:** 1 — One function, no I/O
 - **Exit criteria:** predict exact output on 4 of 5 unseen functions, first try; explain each line in plain English; identify inputs, outputs, and state changes without prompting.
-- **Current focus:** Trace assignments in order. Treat `=` as replacement; preserve a value copied into another variable. Distinguish `%` (remainder) from `//` (floor-division quotient). Recognize that a `def` only defines until called.
-- **Next session:** Re-drill the saved-variable-after-reassignment drill (ended before it), then quotient/remainder tracing (`%` vs `//`), then state-change tracing. Mix in the Python-feature overlay deck (name binding, truthiness, loops) as fresh material. Reviews now scheduled via the local FSRS deck.
+- **Current focus:** Trace assignments in order. Treat `=` as replacement; a reassignment inside a loop is a rebind (builds a new value), never an in-place fill — mutation happens only via `.append()` etc. Where a function exits (early `return` fires the moment the condition is met, not after the scan). Container truthiness is decided by empty-vs-non-empty, not by contents (`[0]` and `[None]` are truthy; `[]`, `""`, `0`, `None` are falsy).
+- **Next session:** FSRS will resurface two concepts rated weak this session — early-return exit location and container truthiness — drill those first with fresh code. Then continue string-accumulation-by-reassignment (understanding clicked, untested by a committed answer) and mix in the overlay deck (for-loop vs range, name binding) as they come due.
 
 ---
 
@@ -23,6 +23,18 @@ list after three clean sessions.
 ---
 
 ## Session log
+
+### 2026-09-08 (Hermes session)
+
+- Continued Stage 1. All copying/reassignment mechanisms from the prior miss set were now first-try correct: saved-variable-persists-after-reassignment (100 → 100), copied-value-survives (implicit in later drills), state-change tracing across a,b,c (0,2,2).
+- Quotient/remainder solid: `47 // 5` = 9, `47 % 5` = 2, tuple (9,2) correct first try.
+- Mutation-of-shared-list correct first try: `backup = scores; scores.append(40); scores = [1,2]` → backup is `[10,20,30,40]`. Learner distinguished mutation (both names see it) from rebinding (only one name).
+- MISS (rated Again, recovered): return-exit location. On `for n in nums: if n==4: return n`, learner answered `2` (counting the 4s) instead of `4` (the value returned). Wrong assumption: that `return n` returns a match-count rather than the value of `n`. Re-drill on early `return` inside a loop was correct first try; concept rated Good after.
+- MISS (rated Again twice, then resolved): container truthiness. First answer wrong on counting truthy in `[0,"",[],5,None,"hi"]` (guessed 5, answer 2). Re-drill counted `[0]` as falsy (said 3,4; answer 4,3). Root confusion: believed truthiness of a container depended on its contents. Tutor taught container rule directly (non-empty container is truthy regardless of contents; falsy set is `[]`,`""`,`0`,`None`). Third drill correct in mechanism; learner wrote `[None]` meaning `[0]` (keyboard limitation, no zero glyph available) — clarified, mechanism confirmed. Concept rated Good.
+- Name binding correct first try: `x=[1,2,3]; y=x; x.append(99)` → y is `[1,2,3,99]` (mutation through shared reference).
+- if/elif/else + short-circuit correct first try on both classify(-5/0/7) and `dict.get() or "guest"`.
+- String accumulation by reassignment (`total = total + letters[i]` from `""`): learner did not commit an answer, asked to understand the mechanism. Explained `=`-is-rebind vs in-place mutation; strings immutable, `+` builds a new string. The trap was `""` visually resembling a fillable container like `[]`; rule offered: `=` means rebind, only `.append()`-style calls mutate. Not logged to FSRS (no committed answer).
+- Reviews logged to FSRS in real time for every committed answer.
 
 ### 2026-09-07 (Hermes session)
 
